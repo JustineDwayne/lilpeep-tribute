@@ -23,6 +23,7 @@ export default function Header() {
             src={lp}
             alt="Lil Peep Logo"
             className="w-40 md:w-52"
+            onClick={() => href = "/"}
             priority
           />
         </Link>
@@ -33,7 +34,7 @@ export default function Header() {
             <Link
               key={index}
               href={link.href}
-              className="hover:underline"
+              className="hover:text-pink-200"
             >
               {link.label}
             </Link>
