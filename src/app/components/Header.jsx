@@ -19,13 +19,13 @@ export default function Header() {
 
   return (
     <header className={`${isHome ? "bg-gradient-to-r from-rose-500 to-pink-900 fixed top-0 w-full z-40 shadow-md" : "bg-gradient-to-r from-rose-500 to-pink-900 sticky top-0 w-full z-40 shadow-md"}`}>
-      <div className="flex justify-between items-center py-4 px-6 md:px-6">
+      <div className="flex justify-between items-center py-2 px-6 md:px-6">
         {/* Logo */}
         <Link href="/" className="flex items-center">
           <Image
             src={lp}
             alt="Lil Peep Logo"
-            className="w-40 md:w-52 md:h-18"
+            className="w-40 md:w-49 md:h-18"
             onClick={() => href = "/"}
             priority
           />
