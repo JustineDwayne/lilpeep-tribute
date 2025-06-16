@@ -12,9 +12,9 @@ export default function Header() {
   const isHome = pathname === "/";
 
   const links = [
-    { label: "Home", href: "/" },
-    { label: "Merch", href: "/merch" },
-    { label: "Discography", href: "/discography" },
+    { label: "home", href: "/" },
+    { label: "merch", href: "/merch" },
+    { label: "discography", href: "/discography" },
   ];
 
   return (
