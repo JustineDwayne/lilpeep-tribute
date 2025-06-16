@@ -5,3 +5,10 @@ body {
   margin: 0;
   padding: 0;
 }
+
+/* Hide the Vercel feedback bubble */
+[aria-label="Feedback"],
+#__next-build-watcher,
+#__vercel {
+  display: none !important;
+}
