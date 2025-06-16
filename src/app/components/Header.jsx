@@ -1,8 +1,13 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import lp from 'public/logo.png'
+'use client';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useState } from 'react';
+import lp from 'public/logo.png';
+import { Menu, X } from 'lucide-react'; // Optional: use Lucide icons
 
 export default function Header() {
+  const [isOpen, setIsOpen] = useState(false);
+
   const links = [
     { label: "Home", href: "/" },
     { label: "Merch", href: "/merch" },
@@ -10,18 +15,56 @@ export default function Header() {
   ];
 
   return (
-    <section className="flex justify-between items-center bg-pink-400 py-4 px-8 sticky top-0 z-40">
-      <div>
-        <Image src={lp} alt="Lil Peep Logo" className="w-32 h-auto" />
+    <header className="bg-pink-400 sticky top-0 z-40 shadow-md">
+      <div className="flex justify-between items-center py-4 px-6 md:px-6">
+        {/* Logo */}
+        <Link href="/" className="flex items-center">
+          <Image
+            src={lp}
+            alt="Lil Peep Logo"
+            className="w-40 md:w-52"
+            priority
+          />
+        </Link>
+
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex gap-8 md:text-2xl text-white text-lg font-semibold">
+          {links.map((link, index) => (
+            <Link
+              key={index}
+              href={link.href}
+              className="hover:underline"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </nav>
+
+        {/* Mobile Hamburger */}
+        <button
+          className="md:hidden text-white"
+          onClick={() => setIsOpen(!isOpen)}
+          aria-label="Toggle Menu"
+        >
+          {isOpen ? <X size={28} /> : <Menu size={28} />}
+        </button>
       </div>
 
-      <nav className="flex gap-6 text-xl font-semibold  ">
-        {links.map((link, index) => (
-          <Link key={index} href={link.href} className="text-white hover:underline">
-            {link.label}
-          </Link>
-        ))}
-      </nav>
-    </section>
+      {/* Mobile Menu */}
+      {isOpen && (
+        <div className="flex flex-col md:hidden bg-pink-400 px-6 pb-4 gap-3 text-white text-lg font-semibold">
+          {links.map((link, index) => (
+            <Link
+              key={index}
+              href={link.href}
+              onClick={() => setIsOpen(false)}
+              className="hover:underline"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
+      )}
+    </header>
   );
 }
