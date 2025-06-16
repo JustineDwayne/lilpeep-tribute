@@ -1,12 +1,15 @@
 'use client';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from "next/navigation";
 import { useState } from 'react';
 import lp from 'public/logo.png';
 import { Menu, X } from 'lucide-react'; // Optional: use Lucide icons
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
 
   const links = [
     { label: "Home", href: "/" },
@@ -15,14 +18,14 @@ export default function Header() {
   ];
 
   return (
-    <header className="bg-pink-400 sticky top-0 z-40 shadow-md">
+    <header className={`${isHome ? "bg-pink-700 fixed top-0 w-full z-40 shadow-md" : "bg-pink-700 sticky top-0 w-full z-40 shadow-md"}`}>
       <div className="flex justify-between items-center py-4 px-6 md:px-6">
         {/* Logo */}
         <Link href="/" className="flex items-center">
           <Image
             src={lp}
             alt="Lil Peep Logo"
-            className="w-40 md:w-52"
+            className="w-40 md:w-52 md:h-18"
             onClick={() => href = "/"}
             priority
           />
@@ -53,7 +56,7 @@ export default function Header() {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="flex flex-col md:hidden bg-pink-400 px-6 pb-4 gap-3 text-white text-lg font-semibold">
+        <div className="flex flex-col md:hidden bg-pink-600 px-6 pb-4 gap-3 text-white text-lg font-semibold">
           {links.map((link, index) => (
             <Link
               key={index}
