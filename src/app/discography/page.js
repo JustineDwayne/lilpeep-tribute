@@ -20,7 +20,7 @@ export default function DiscographyPage() {
       <div className="relative z-20">
         <Header />
         <main className="p-10 text-white">
-          <h4 className="text-4xl font-extrabold mt-20">Discography</h4>
+          <h4 className="text-4xl font-extrabold">Discography</h4>
           {/* Your discography content here */}
         </main>
       </div>
