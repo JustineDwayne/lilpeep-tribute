@@ -18,7 +18,7 @@ export default function Header() {
   ];
 
   return (
-    <header className={`${isHome ? "bg-gradient-to-r from-rose-500 to-pink-900 fixed top-0 w-full z-40 shadow-md" : "bg-gradient-to-r from-rose-500 to-pink-900 sticky top-0 w-full z-40 shadow-md"}`}>
+    <header className={`${isHome ? "bg-gradient-to-r from-rose-500 to-pink-900 fixed top-0 w-full z-40" : "bg-gradient-to-r from-rose-500 to-pink-900 sticky top-0 w-full z-40 shadow-md"}`}>
       <div className="flex justify-between items-center py-2 px-6 md:px-6">
         {/* Logo */}
         <Link href="/" className="flex items-center">
@@ -26,7 +26,6 @@ export default function Header() {
             src={lp}
             alt="Lil Peep Logo"
             className="w-40 md:w-49 md:h-18"
-            onClick={() => href = "/"}
             priority
           />
         </Link>
@@ -56,7 +55,7 @@ export default function Header() {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="flex flex-col md:hidden bg-pink-600 px-6 pb-4 gap-3 text-white text-lg font-semibold">
+        <div className="flex flex-col md:hidden bg-gradient-to-r from-rose-500 to-pink-9000 px-6 pb-4 gap-3 text-white text-lg font-semibold">
           {links.map((link, index) => (
             <Link
               key={index}
