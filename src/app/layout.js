@@ -14,11 +14,17 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: "Lil Peep: A Tribute",
   description: "A tribute to the late rapper, Lil Peep.",
+  icons: {
+    icon: '/lilpeep1.ico',
+  }
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/lilpeep1.ico" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
