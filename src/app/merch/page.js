@@ -1,12 +1,23 @@
+'use client';
+import { useEffect, useState } from 'react';
 import Header from "../components/Header.jsx";
 import Image from "next/image";
 import t from "public/texture.jpg";
 import t1 from "public/texture1.jpg";
 
 export default function Merch() {
+  const [merch, setMerch] = useState([]);
+
+  useEffect(() => {
+    fetch('/api/merch')
+      .then(res => res.json())
+      .then((data) => setMerch(data))
+      .catch((error) => console.error('Error fetching merch data:', error));
+  }, []);
+
   return (
     <div className="relative min-h-screen overflow-hidden">
-      {/* Gradient Background */}
+      {/* Background Gradient */}
       <div className="absolute inset-0 z-0">
         <div className="w-full h-full bg-gradient-to-r from-rose-500 to-pink-900" />
       </div>
@@ -19,12 +30,34 @@ export default function Merch() {
         <Image src={t} alt="Overlay Texture 2" fill className="object-cover" priority />
       </div>
 
-      {/* Foreground content */}
-      <div className="relative">
+      {/* Foreground Content */}
+      <div className="relative z-20">
         <Header />
         <main className="p-10 text-white">
-          <h1 className="text-4xl font-extrabold">Merch</h1>
-          {/* Merch content goes here */}
+          <h1 className="text-4xl font-extrabold mb-6">Merch</h1>
+          <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {merch.map((item, index) => (
+              <div
+                key={index}
+                className="group relative p-4 bg-white/10 border border-white/20 rounded-xl backdrop-blur-lg shadow-xl hover:scale-105 transition-transform duration-300"
+              >
+                <div className="w-full h-48 mb-4 overflow-hidden rounded-lg border border-white/10">
+                  <Image
+                    src={item.image}
+                    alt={item.name}
+                    width={300}
+                    height={300}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <h2 className="text-lg font-bold uppercase tracking-widest">{item.name}</h2>
+                <span className="text-xs mt-2 inline-block px-2 py-1 bg-white text-black rounded font-bold uppercase mb-1">
+                  {item.type}
+                </span>
+                <p className="text-sm text-white/80">{item.description}</p>
+              </div>
+            ))}
+          </div>
         </main>
       </div>
     </div>
