@@ -1,10 +1,40 @@
 'use client';
+import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Image from "next/image";
 import t from "public/texture.jpg";
-import t1 from "public/texture1.jpg";
 
 export default function DiscographyPage() {
+  const [albums, setAlbums] = useState([]);
+  const [tracks, setTracks] = useState([]);
+  const artist = "lil peep";
+
+  useEffect(() => {
+    async function fetchAlbums() {
+      try {
+        const response = await fetch(`/api/spotify/discography?artist=${encodeURIComponent(artist)}`);
+        const data = await response.json();
+        setAlbums(data);
+      } catch (error) {
+        console.error("Error fetching albums:", error);
+      }
+    }
+    fetchAlbums();
+  }, [artist]);
+
+  useEffect(() => {
+    async function fetchTracks() {
+      try {
+        const response = await fetch(`/api/spotify/discography?artist=${encodeURIComponent(artist)}&withTracks=true`);
+        const data = await response.json();
+        setTracks(data);
+      } catch (error) {
+        console.error("Error fetching tracks:", error);
+      }
+    }
+    fetchTracks();
+  }, [artist]);
+
   return (
     <div className="relative min-h-screen overflow-hidden">
       {/* Gradient Background */}
@@ -21,7 +51,27 @@ export default function DiscographyPage() {
         <Header />
         <main className="p-10 text-white">
           <h4 className="text-4xl font-extrabold">Discography</h4>
-          {/* Your discography content here */}
+          {albums.length === 0 ? (
+            <p>Loading...</p>
+          ) : (
+            albums.map((album) => (
+              <div key={album.id} className="mb-8">
+                <h5 className="text-2xl font-bold">{album.name}</h5>
+                {album.images?.[0] && (
+                  <img
+                    src={album.images[0].url}
+                    alt={album.name}
+                    className="mt-2 rounded-xl w-[200px]"
+                  />
+                )}
+                <ul className="list-disc ml-5 mt-2">
+                  {album.tracks?.map((track) => (
+                    <li key={track.id}>{track.name}</li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          )}
         </main>
       </div>
     </div>
