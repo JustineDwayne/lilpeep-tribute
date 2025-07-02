@@ -111,8 +111,14 @@ export default function DiscographyPage() {
 
       {/* Modal */}
       {isModalOpen && selectedAlbum && (
-        <div className="fixed inset-0 z-30 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="relative bg-white/10 border border-white/20 text-white backdrop-blur-2xl shadow-xl p-6 rounded-2xl w-full max-w-2xl">
+        <div className="fixed inset-0 z-50 flex backdrop-blur-lg items-center justify-center p-4 overflow-x-hidden bg-black/50">
+          {/* Overlay with blur */}
+          <div
+            className="absolute inset-0 bg-black/60"
+            onClick={closeModal} // Optional: Close modal when clicking outside
+          ></div>
+          {/* Modal content */}
+          <div className="relative z-40 bg-white/10 border border-white/20 text-white shadow-xl p-6 rounded-2xl w-full max-w-2xl">
             {/* Close Button */}
             <button
               onClick={closeModal}
@@ -134,9 +140,8 @@ export default function DiscographyPage() {
                 {modalTracks.map((track, index) => (
                   <li
                     key={`${track.id}-${index}`}
-                    className="flex gap-4 items-center bg-white/10 rounded-lg p-3 backdrop-blur-md hover:bg-white/20 transition"
+                    className="flex gap-4 items-center bg-white/10 rounded-lg p-3 hover:bg-white/20 transition"
                   >
-                    {/* Track Info + Audio */}
                     <div className="flex flex-col flex-1">
                       <div className="flex justify-between items-center">
                         <span className="text-base font-semibold truncate">{track.name}</span>
@@ -144,7 +149,6 @@ export default function DiscographyPage() {
                           {formatDuration(track.duration_ms || track.duration * 1000)}
                         </span>
                       </div>
-
                       <div className="mt-2">
                         {track.preview_url ? (
                           <audio
